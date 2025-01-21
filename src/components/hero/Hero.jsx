@@ -66,17 +66,17 @@ const Hero = () => {
                     <motion.div className="awardList">
                         <motion.img
                             variants={awardVariants}
-                            src="/public/award1.png"
+                            src="/award1.png"
                             alt=""
                         />
                         <motion.img
                             variants={awardVariants}
-                            src="/public/award2.png"
+                            src="/award2.png"
                             alt=""
                         />
                         <motion.img
                             variants={awardVariants}
-                            src="/public/award3.png"
+                            src="/award3.png"
                             alt=""
                         />
                     </motion.div>
@@ -128,13 +128,13 @@ const Hero = () => {
                     className="follow"
                 >
                     <motion.a variants={followVariants} href="/">
-                        <img src="/public/instagram.png" alt="" />
+                        <img src="/instagram.png" alt="" />
                     </motion.a>
                     <motion.a variants={followVariants} href="/">
-                        <img src="/public/facebook.png" alt="" />
+                        <img src="/facebook.png" alt="" />
                     </motion.a>
                     <motion.a variants={followVariants} href="/">
-                        <img src="/public/youtube.png" alt="" />
+                        <img src="/youtube.png" alt="" />
                     </motion.a>
                     <motion.div
                         variants={followVariants}
@@ -151,7 +151,7 @@ const Hero = () => {
                     transition={{ duration: 1 }}
                     className="certificate"
                 >
-                    <img src="/public/certificate.png" alt="" />
+                    <img src="/certificate.png" alt="" />
                     LMA CERTIFICED
                     <br />
                     PROFESSIONAL
@@ -225,7 +225,7 @@ const Hero = () => {
                     </Suspense>
                 </Canvas>
                 <div className="hImg">
-                    <img src="/public/hero.png" alt="" />
+                    <img src="/hero.png" alt="" />
                 </div>
             </div>
         </div>
