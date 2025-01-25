@@ -39,6 +39,7 @@ const items = [
         link: '/',
     },
 ];
+
 const imgVariants = {
     initial: {
         x: -500,
@@ -78,19 +79,20 @@ const ListItem = ({ item }) => {
     const ref = useRef();
 
     const isInView = useInView(ref, { margin: '-100px' });
+
     return (
         <div className="pItem" ref={ref}>
             <motion.div
-                className="pImg"
                 variants={imgVariants}
                 animate={isInView ? 'animate' : 'initial'}
+                className="pImg"
             >
                 <img src={item.img} alt="" />
             </motion.div>
             <motion.div
-                className="pText"
                 variants={textVariants}
                 animate={isInView ? 'animate' : 'initial'}
+                className="pText"
             >
                 <motion.h1 variants={textVariants}>{item.title}</motion.h1>
                 <motion.p variants={textVariants}>{item.desc}</motion.p>
@@ -101,15 +103,34 @@ const ListItem = ({ item }) => {
         </div>
     );
 };
+
 const Portfolio = () => {
     const [containerDistance, setContainerDistance] = useState(0);
     const ref = useRef(null);
 
+    // useEffect(() => {
+    //   if (ref.current) {
+    //     const rect = ref.current.getBoundingClientRect();
+    //     setContainerDistance(rect.left);
+    //   }
+    // }, []);
+
+    // FIX: Re-calculate when screen size changes
     useEffect(() => {
-        if (ref.current) {
-            const rect = ref.current.getBoundingClientRect();
-            setContainerDistance(rect.left);
-        }
+        const calculateDistance = () => {
+            if (ref.current) {
+                const rect = ref.current.getBoundingClientRect();
+                setContainerDistance(rect.left);
+            }
+        };
+
+        calculateDistance();
+
+        window.addEventListener('resize', calculateDistance);
+
+        return () => {
+            window.removeEventListener('resize', calculateDistance);
+        };
     }, []);
 
     const { scrollYProgress } = useScroll({ target: ref });
@@ -119,6 +140,7 @@ const Portfolio = () => {
         [0, 1],
         [0, -window.innerWidth * items.length]
     );
+
     return (
         <div className="portfolio" ref={ref}>
             <motion.div className="pList" style={{ x: xTranslate }}>
@@ -126,10 +148,9 @@ const Portfolio = () => {
                     className="empty"
                     style={{
                         width: window.innerWidth - containerDistance,
-                        // backgroundColor: 'pink',
+                        // backgroundColor: "pink",
                     }}
                 />
-
                 {items.map((item) => (
                     <ListItem item={item} key={item.id} />
                 ))}
