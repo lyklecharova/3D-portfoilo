@@ -1,10 +1,28 @@
 import { useRef, useState } from 'react';
 import './contact.css';
 import emailjs from '@emailjs/browser';
+import { motion, useInView } from 'motion/react';
+import ContactSvg from './ContactSvg';
+
+const listVariant = {
+    initial: {
+        x: 100,
+        opacity: 0,
+    },
+    animate: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+            staggerChildren: 0.2,
+        },
+    },
+};
 const Contact = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
+    const ref = useRef();
     const form = useRef();
 
     const sendEmail = (e) => {
@@ -30,43 +48,58 @@ const Contact = () => {
                 }
             );
     };
+
+    const isInView = useInView(ref, { margin: '-200px' });
     return (
-        <div className="contact">
+        <div className="contact" ref={ref} onSubmit={sendEmail}>
             <div className="cSection">
-                <form ref={form} onSubmit={sendEmail}>
-                    <h1 className="cTitle">Let's keep in touch</h1>
-                    <div className="formItem">
+                <motion.form
+                    variants={listVariant}
+                    animate={isInView ? 'animate' : 'initial'}
+                    ref={form}
+                    onSubmit={sendEmail}
+                >
+                    <motion.h1 variants={listVariant} className="cTitle">
+                        Let's keep in touch
+                    </motion.h1>
+                    <motion.div variants={listVariant} className="formItem">
                         <label>Name</label>
                         <input
                             type="text"
                             name="user_username"
                             placeholder="John Doe"
                         />
-                    </div>
-                    <div className="formItem">
+                    </motion.div>
+                    <motion.div variants={listVariant} className="formItem">
                         <label>Email</label>
                         <input
                             type="email"
                             name="user_email"
                             placeholder="john@gmail.com"
                         />
-                    </div>
-                    <div className="formItem">
+                    </motion.div>
+                    <motion.div variants={listVariant} className="formItem">
                         <label>Message</label>
                         <textarea
                             rows={10}
                             name="user_message"
                             placeholder="Write your message..."
                         ></textarea>
-                    </div>
-                    <button type="submit" className="formButton">
+                    </motion.div>
+                    <motion.button
+                        variants={listVariant}
+                        type="submit"
+                        className="formButton"
+                    >
                         Send
-                    </button>
+                    </motion.button>
                     {success && <span>Your message has been sent!</span>}
                     {error && <span>Something went wrong!</span>}
-                </form>
+                </motion.form>
             </div>
-            <div className="cSection">SVG</div>
+            <div className="cSection">
+                <ContactSvg />
+            </div>
         </div>
     );
 };
