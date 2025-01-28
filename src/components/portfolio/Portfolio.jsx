@@ -42,8 +42,8 @@ const items = [
 
 const imgVariants = {
     initial: {
-        x: -500,
-        y: 500,
+        x: window.innerWidth <= 768 ? -15 : -500, // Mobile values (-15) and desktop values (-500)
+        y: window.innerWidth <= 768 ? 15 : 500, // Mobile values (15) and desktop values (500)
         opacity: 0,
     },
     animate: {
@@ -59,8 +59,8 @@ const imgVariants = {
 
 const textVariants = {
     initial: {
-        x: 500,
-        y: 500,
+        x: window.innerWidth <= 768 ? 15 : 500, // Mobile values (15) and desktop values (500)
+        y: window.innerWidth <= 768 ? 15 : 500, // Mobile values (15) and desktop values (500)
         opacity: 0,
     },
     animate: {
